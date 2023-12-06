@@ -4,27 +4,36 @@ import { catchError, lastValueFrom, map } from 'rxjs';
 import { GetPredictionTextDto } from './dto/create-prediction_text.dto';
 import { UpdatePredictionTextDto } from './dto/update-prediction_text.dto';
 import { Prediction } from './interfaces/prediction_text.interfaces';
-
-
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class PredictionTextService {
-  constructor(private readonly httpService: HttpService) { }
+  constructor(
+    private readonly httpService: HttpService,
+    private prisma: PrismaService,
+  ) {}
 
   async create(GetPredictionTextDto: GetPredictionTextDto) {
+    const prediction_text = this.prisma.prediction_Text.create({
+      data: {
+        text: GetPredictionTextDto.text,
+      },
+    });
 
-    const request = this.httpService.post('http://127.0.0.1:8000/predict', {
-      text: GetPredictionTextDto.text
-    }).pipe(map((res) => res.data)).pipe(
-      catchError(() => {
-        throw new ForbiddenException("API not available")
+    const request = this.httpService
+      .post('http://127.0.0.1:8000/predict', {
+        text: GetPredictionTextDto.text,
       })
-    )
-    const data = await lastValueFrom<Prediction>(request)
+      .pipe(map((res) => res.data))
+      .pipe(
+        catchError(() => {
+          throw new ForbiddenException('API not available');
+        }),
+      );
+    const data = await lastValueFrom<Prediction>(request);
     return {
-      data
-    }
-
+      data,
+    };
   }
 
   findAll() {
