@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "sapu-rest",
+  "type": "collection",
+  "presets": {
+    "requestType": "http",
+    "requestUrl": "http://localhost:3000"
+  }
+}

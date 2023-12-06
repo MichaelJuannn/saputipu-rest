@@ -1,0 +1,17 @@
+meta {
+  name: prediction_post
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/prediction-text
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "text": "ini text dari post request"
+  }
+}
