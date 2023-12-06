@@ -7,7 +7,6 @@ import { PrismaService } from 'src/prisma.service';
 export class ReportService {
   constructor(private readonly prisma: PrismaService) {}
   create(createReportDto: CreateReportDto) {
-    console.log(createReportDto);
     return this.prisma.laporan.create({
       data: {
         nomor_rekening: {
@@ -25,6 +24,7 @@ export class ReportService {
       },
     });
   }
+
   findAll() {
     return `This action returns all report`;
   }
@@ -34,15 +34,7 @@ export class ReportService {
       where: {
         id: id,
       },
-      select: {
-        nomor_rekening: true,
-        title: true,
-        body: true,
-        evidence: true,
-        createdAt: true,
-      },
     });
-    return `This action returns a #${id} report`;
   }
 
   update(id: number, updateReportDto: UpdateReportDto) {
