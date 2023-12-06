@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String
+  laporan   Laporan[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Rekening {
+  nomor_rekening String @id
+  laporan      Laporan[]
+}
+
+model Prediction_Text {
+  id Int @id @default(autoincrement())
+  text String
+  createdAt DateTime @default(now())
+}
+
+model Laporan {
+  id String @id @default(uuid())
+  nomor_rekening Rekening @relation(fields: [nomor_rekening_id], references: [nomor_rekening])
+  nomor_rekening_id String
+  title String
+  body String
+  evidence String
+  reporter User @relation(fields: [user_id], references: [id])
+  user_id Int
+  status String
+  createdAt DateTime @default(now())
+}
