@@ -1,0 +1,21 @@
+meta {
+  name: create_report
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/report
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "account_number":"123123123",
+    "title":"Penipu Top Up Dota",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id consectetur purus ut faucibus pulvinar elementum integer ",
+    "evidence":"www.xdd.com",
+    "user_id":"1"
+  }
+}

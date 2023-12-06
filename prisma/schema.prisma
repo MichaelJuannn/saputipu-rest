@@ -36,9 +36,9 @@ model Laporan {
   nomor_rekening_id String
   title String
   body String
-  evidence String
+  evidence String?
   reporter User @relation(fields: [user_id], references: [id])
   user_id Int
-  status String
+  status String?
   createdAt DateTime @default(now())
 }

@@ -4,10 +4,10 @@ import { AppService } from './app.service';
 import { PredictionTextModule } from './prediction_text/prediction_text.module';
 import { UserModule } from './user/user.module';
 import { ReportModule } from './report/report.module';
-import { AccountModule } from './account/account.module';
+import { BankAccountModule } from './bank-account/bank-account.module';
 
 @Module({
-  imports: [PredictionTextModule, UserModule, ReportModule, AccountModule],
+  imports: [PredictionTextModule, UserModule, ReportModule, BankAccountModule],
   controllers: [AppController],
   providers: [AppService],
 })
