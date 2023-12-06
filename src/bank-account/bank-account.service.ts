@@ -11,7 +11,7 @@ export class BankAccountService {
   }
 
   findAll() {
-    return `This action returns all bankAccount`;
+    return this.prisma.rekening.findMany();
   }
 
   findOne(id: string) {
@@ -34,7 +34,11 @@ export class BankAccountService {
     return `This action updates a #${id} bankAccount`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bankAccount`;
+  remove(id: string) {
+    return this.prisma.rekening.delete({
+      where: {
+        nomor_rekening: id,
+      },
+    });
   }
 }
