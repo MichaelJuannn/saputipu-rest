@@ -37,7 +37,7 @@ export class PredictionTextService {
   }
 
   findAll() {
-    return `This action returns all predictionText`;
+    return `This action returns  predictionText`;
   }
 
   findOne(id: number) {
