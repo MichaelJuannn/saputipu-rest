@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ReportService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createReportDto: CreateReportDto) {
+  create(email: string, createReportDto: CreateReportDto) {
     return this.prisma.laporan.create({
       data: {
         nomor_rekening: {
@@ -16,7 +16,7 @@ export class ReportService {
           },
         },
         reporter: {
-          connect: { id: +createReportDto.user_id },
+          connect: { email: email },
         },
         title: createReportDto.title,
         body: createReportDto.description,
@@ -33,6 +33,14 @@ export class ReportService {
     return this.prisma.laporan.findUnique({
       where: {
         id: id,
+      },
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        evidence: true,
+        nomor_rekening_id: true,
+        createdAt: true,
       },
     });
   }

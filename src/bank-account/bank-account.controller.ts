@@ -15,20 +15,20 @@ import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
 export class BankAccountController {
   constructor(private readonly bankAccountService: BankAccountService) {}
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.bankAccountService.findOne(id);
+  }
+
   /*   @Post()
   create(@Body() createBankAccountDto: CreateBankAccountDto) {
     return this.bankAccountService.create(createBankAccountDto);
   } */
 
-  @Get()
-  findAll() {
-    return this.bankAccountService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bankAccountService.findOne(id);
-  }
+  // @Get()
+  // findAll() {
+  //   return this.bankAccountService.findAll();
+  // }
 
   /*   @Patch(':id')
   update(
@@ -38,8 +38,8 @@ export class BankAccountController {
     return this.bankAccountService.update(+id, updateBankAccountDto);
   } */
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bankAccountService.remove(id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.bankAccountService.remove(id);
+  // }
 }

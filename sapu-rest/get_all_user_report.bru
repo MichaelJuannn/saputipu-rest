@@ -1,0 +1,15 @@
+meta {
+  name: get_all_user_report
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:3000/user/myreport
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc0BnbWFpbC5jb20iLCJzdWIiOjQsIm5hbWUiOiJjYXB5YmFyYSIsImlhdCI6MTcwMTkyNzE0MCwiZXhwIjoxNzAyMDEzNTQwfQ.lHyj21KGTqsehkI7v2PQnuosFTc7eNK_jBSnp9c9eBI
+}

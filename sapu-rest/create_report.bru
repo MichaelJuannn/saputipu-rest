@@ -7,15 +7,18 @@ meta {
 post {
   url: http://localhost:3000/report
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc0BnbWFpbC5jb20iLCJzdWIiOjQsIm5hbWUiOiJjYXB5YmFyYSIsImlhdCI6MTcwMTkyNzE0MCwiZXhwIjoxNzAyMDEzNTQwfQ.lHyj21KGTqsehkI7v2PQnuosFTc7eNK_jBSnp9c9eBI
 }
 
 body:json {
   {
     "account_number":"123123123",
-    "title":"Penipu Top Up Genshin",
+    "title":"Penipu Top Up PUBG",
     "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id consectetur purus ut faucibus pulvinar elementum integer ",
-    "evidence":"www.ddx.com",
-    "user_id":"1"
+    "evidence":"www.ddx.com"
   }
 }

@@ -27,6 +27,16 @@ export class UserService {
     return `This action returns all user`;
   }
 
+  findReports(email: string) {
+    return this.prisma.laporan.findMany({
+      where: {
+        reporter: {
+          email: email,
+        },
+      },
+    });
+  }
+
   findOne(email: string) {
     return this.prisma.user.findUnique({
       where: {

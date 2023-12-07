@@ -23,23 +23,31 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
   @UseGuards(AuthGuard)
   @Get('myprofile')
   findOne(@Request() req) {
     return this.userService.findOne(req.user.email);
   }
 
-  @Patch(':id')
-  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(email, updateUserDto);
+  @UseGuards(AuthGuard)
+  @Get('myreport')
+  findreports(@Request() req) {
+    return this.userService.findReports(req.user.email);
   }
 
-  @Delete(':id')
+  @UseGuards(AuthGuard)
+  @Patch()
+  update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(req.user.email, updateUserDto);
+  }
+
+  /*   @Get()
+    findAll() {
+      return this.userService.findAll();
+    } */
+
+  /*   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
-  }
+  } */
 }

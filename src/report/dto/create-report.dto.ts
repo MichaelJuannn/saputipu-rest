@@ -3,5 +3,4 @@ export class CreateReportDto {
   title: string;
   description: string;
   evidence: string;
-  user_id: string;
 }
