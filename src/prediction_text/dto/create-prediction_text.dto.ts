@@ -1,3 +1,3 @@
 export class GetPredictionTextDto {
-    text: string
+  text: string;
 }
