@@ -8,12 +8,19 @@ import {
   Delete,
   UseGuards,
   Request,
+  HttpException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, newUser, userReport } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('user')
 @Controller('user')
@@ -22,8 +29,16 @@ export class UserController {
 
   @Post()
   @ApiBody({ type: CreateUserDto })
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+    type: newUser,
+  })
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    try {
+      return this.userService.create(createUserDto);
+    } catch (error) {
+      throw new HttpException('Bad Request', 400);
+    }
   }
 
   @ApiBearerAuth()
@@ -36,6 +51,11 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Get('myreport')
+  @ApiOkResponse({
+    description: 'The record has been successfully retrieved.',
+    type: userReport,
+    isArray: true,
+  })
   findreports(@Request() req) {
     return this.userService.findReports(req.user.email);
   }
@@ -43,6 +63,11 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Patch()
+  @ApiBody({ type: UpdateUserDto })
+  @ApiOkResponse({
+    description: 'The record has been successfully updated.',
+    type: newUser,
+  })
   update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(req.user.email, updateUserDto);
   }

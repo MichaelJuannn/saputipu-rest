@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -13,13 +13,21 @@ export class UserService {
       createUserDto.password,
       saltrounds,
     );
-    const newUser = await this.prisma.user.create({
-      data: {
-        email: createUserDto.email,
-        name: createUserDto.name,
-        password: hashedPassword,
-      },
-    });
+    const newUser = await this.prisma.user
+      .create({
+        data: {
+          email: createUserDto.email,
+          name: createUserDto.name,
+          password: hashedPassword,
+        },
+        select: {
+          email: true,
+          name: true,
+        },
+      })
+      .catch((error) => {
+        throw new BadRequestException();
+      });
     return newUser;
   }
 
@@ -52,6 +60,10 @@ export class UserService {
       },
       data: {
         name: updateUserDto.name,
+      },
+      select: {
+        email: true,
+        name: true,
       },
     });
   }
