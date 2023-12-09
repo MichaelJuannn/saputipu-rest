@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -7,22 +7,27 @@ import { PrismaService } from 'src/prisma.service';
 export class ReportService {
   constructor(private readonly prisma: PrismaService) {}
   create(email: string, createReportDto: CreateReportDto) {
-    return this.prisma.laporan.create({
-      data: {
-        nomor_rekening: {
-          connectOrCreate: {
-            where: { nomor_rekening: createReportDto.account_number },
-            create: { nomor_rekening: createReportDto.account_number },
+    this.prisma.laporan
+      .create({
+        data: {
+          nomor_rekening: {
+            connectOrCreate: {
+              where: { nomor_rekening: createReportDto.account_number },
+              create: { nomor_rekening: createReportDto.account_number },
+            },
           },
+          reporter: {
+            connect: { email: email },
+          },
+          title: createReportDto.title,
+          body: createReportDto.description,
+          evidence: createReportDto.evidence,
         },
-        reporter: {
-          connect: { email: email },
-        },
-        title: createReportDto.title,
-        body: createReportDto.description,
-        evidence: createReportDto.evidence,
-      },
-    });
+      })
+      .catch((err) => {
+        throw new BadRequestException();
+      });
+    return { message: 'Laporan berhasil dibuat' };
   }
 
   findAll() {

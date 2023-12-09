@@ -13,8 +13,20 @@ import { ReportService } from './report.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiProperty,
+  ApiTags,
+} from '@nestjs/swagger';
+import { userReport } from 'src/user/dto/create-user.dto';
 
+class Message {
+  @ApiProperty({ example: 'Laporan berhasil dibuat' })
+  message: string;
+}
 @ApiBearerAuth()
 @ApiTags('report')
 @Controller('report')
@@ -23,11 +35,13 @@ export class ReportController {
 
   @UseGuards(AuthGuard)
   @Post()
+  @ApiCreatedResponse({ type: Message })
   create(@Body() createReportDto: CreateReportDto, @Request() req) {
     return this.reportService.create(req.user.email, createReportDto);
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: userReport })
   findOne(@Param('id') id: string) {
     return this.reportService.findOne(id);
   }
