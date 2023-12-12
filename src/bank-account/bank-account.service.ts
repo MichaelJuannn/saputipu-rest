@@ -22,6 +22,7 @@ export class BankAccountService {
       select: {
         laporan: {
           select: {
+            id: true,
             title: true,
             createdAt: true,
           },

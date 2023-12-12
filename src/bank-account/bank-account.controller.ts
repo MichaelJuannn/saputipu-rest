@@ -14,6 +14,8 @@ import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 
 class SmallReport {
   @ApiProperty()
+  id: string;
+  @ApiProperty()
   title: string;
   @ApiProperty()
   createdAt: Date;
