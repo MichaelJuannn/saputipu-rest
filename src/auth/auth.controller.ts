@@ -5,7 +5,7 @@ import { signInDto } from './dto/signIn.dto';
 
 class Token {
   @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' })
-  accessToken: string;
+  access_token: string;
 }
 @ApiTags('auth')
 @Controller('auth')
