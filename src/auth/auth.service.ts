@@ -10,9 +10,12 @@ export class AuthService {
   ) {}
   async signIn(email: string, pass: string): Promise<any> {
     const user = await this.userService.findOne(email);
+    if (!user) {
+      throw new UnauthorizedException({ message: 'Invalid credentials' });
+    }
     const isMatch = await bcrypt.compare(pass, user.password);
     if (!isMatch) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({ message: 'Invalid credentials' });
     }
     const payload = { email: user.email, sub: user.id, name: user.name };
     return {
