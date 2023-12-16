@@ -8,7 +8,13 @@ import { BankAccountModule } from './bank-account/bank-account.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PredictionTextModule, UserModule, ReportModule, BankAccountModule, AuthModule],
+  imports: [
+    PredictionTextModule,
+    UserModule,
+    ReportModule,
+    BankAccountModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
