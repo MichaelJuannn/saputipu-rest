@@ -21,12 +21,12 @@ export class PredictionTextService {
     });
 
     const request = this.httpService
-      .post('http://127.0.0.1:8000/predict', {
+      .post(`${process.env.MODEL_IP}/predict`, {
         text: GetPredictionTextDto.text,
       })
       .pipe(map((res) => res.data))
       .pipe(
-        catchError(() => {
+        catchError((err) => {
           throw new ForbiddenException('API not available');
         }),
       );
