@@ -34,8 +34,8 @@ export class ReportService {
     return `This action returns all report`;
   }
 
-  findOne(id: string) {
-    return this.prisma.laporan.findUnique({
+  async findOne(id: string) {
+    const data = await this.prisma.laporan.findUnique({
       where: {
         id: id,
       },
@@ -48,6 +48,12 @@ export class ReportService {
         createdAt: true,
       },
     });
+    if (!data) {
+      return {
+        message: 'Tidak Ada Laporan Dengan ID Ini',
+      };
+    }
+    return data;
   }
 
   update(id: number, updateReportDto: UpdateReportDto) {
