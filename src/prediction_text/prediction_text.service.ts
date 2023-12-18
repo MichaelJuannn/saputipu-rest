@@ -14,7 +14,7 @@ export class PredictionTextService {
   ) {}
 
   async create(GetPredictionTextDto: GetPredictionTextDto) {
-    const prediction_text = this.prisma.prediction_Text.create({
+    await this.prisma.prediction_Text.create({
       data: {
         text: GetPredictionTextDto.text,
       },
