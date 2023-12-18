@@ -14,8 +14,8 @@ export class BankAccountService {
     return this.prisma.rekening.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.rekening.findUnique({
+  async findOne(id: string) {
+    const data = await this.prisma.rekening.findUnique({
       where: {
         nomor_rekening: id,
       },
@@ -29,6 +29,12 @@ export class BankAccountService {
         },
       },
     });
+    if (!data) {
+      return {
+        message: 'Tidak Ada Laporan Untuk Nomor Rekening Ini',
+      };
+    }
+    return data;
   }
 
   update(id: number, updateBankAccountDto: UpdateBankAccountDto) {
