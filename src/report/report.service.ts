@@ -6,8 +6,8 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ReportService {
   constructor(private readonly prisma: PrismaService) {}
-  create(email: string, createReportDto: CreateReportDto) {
-    this.prisma.laporan
+  async create(email: string, createReportDto: CreateReportDto) {
+    await this.prisma.laporan
       .create({
         data: {
           nomor_rekening: {
