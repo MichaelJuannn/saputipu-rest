@@ -1,17 +1,26 @@
+<p align="center">
+  <a href="https://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
+
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+
 ## Installation
 
 Clone dulu repo nya
 
-## install dependency
+## install dependencies
 
 ```bash
 $ npm install
 ```
 
-## buat file .env
+## Create env file
 
 ```
 DATABASE_URL="mysql://USERNAME:PASSWORD@HOSTNAME:PORT/DATABASE"
+JWT_SECRET ="secret"
+MODEL_IP ="your model ip"
 ```
 
 ## Running the app
@@ -20,13 +29,13 @@ DATABASE_URL="mysql://USERNAME:PASSWORD@HOSTNAME:PORT/DATABASE"
 npm run start:dev
 ```
 
-## Migrasi database
+## Database Migration
 
 ```
 npx prisma migrate dev
 ```
 
-## jika migrasi gagal
+## If Migration fails
 
 ```
 npx prisma db push
